@@ -1,0 +1,55 @@
+<div class="container mt-4 card">
+  <table class="table border-success table-bordered mt-2 bg-light">
+    <thead class="thead-dark">
+      <tr align="center">
+        <th scope="col">#</th>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Department</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone number</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees; index as i" align="center">
+        <th>{{ i + 1 }}</th>
+        <th>{{ employee.id | empId }}</th>
+        <td>{{ employee.name | uppercase }}</td>
+        <td>{{ employee.department | titlecase }}</td>
+        <td>{{ employee.salary | currency }}</td>
+        <td>{{ employee.phoneNumber }}</td>
+
+        <td>
+          <button
+            (click)="SorryU()"
+            class="btn btn-outline-primary"
+            type="button"
+            style="margin: 10px"
+          >
+            Update
+          </button>
+
+          <button
+            (click)="SorryD()"
+            class="btn btn-outline-danger"
+            type="button"
+            style="margin: 10px"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <tr>
+      <td colspan="7" [class.d-none]="employees.length > 0">
+        <div class="text-danger">
+          <h1 align="center">
+            <i class="fa fa-address-book text-primary"> </i>
+            No Data Found
+          </h1>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>

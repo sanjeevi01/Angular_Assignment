@@ -1,0 +1,175 @@
+<div class="container formCg mt-5 card">
+  <div class="heading">
+    <h1 align="center">CapGemini Angular Form</h1>
+  </div>
+
+  <div>
+    <app-date class="date"></app-date>
+  </div>
+
+  <div>
+    <form
+      #userForm="ngForm"
+      name="myForm"
+      (ngSubmit)="saveEmployee(userForm)"
+      novalidate
+    >
+      <!-- ID -->
+
+      <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">ID</label>
+        <div class="col-sm-10">
+          <input
+            type="number"
+            required
+            pattern="^\d{3,6}$"
+            #id="ngModel"
+            [class.is-invalid]="id.invalid && id.touched"
+            class="form-control white"
+            placeholder="Enter Your ID"
+            name="ID"
+            [(ngModel)]="employee.id"
+          />
+
+          <div *ngIf="id.errors && id.invalid && id.touched">
+            <small class="text-danger" *ngIf="id.errors.required"
+              >Id is required</small
+            >
+            <small class="text-danger" *ngIf="id.errors.pattern"
+              >Id must be 3 or more Digit</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Name -->
+
+      <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            required
+            #name="ngModel"
+            [class.is-invalid]="name.invalid && name.touched"
+            class="form-control white"
+            placeholder="Enter Your Name"
+            name="name"
+            [(ngModel)]="employee.name"
+          />
+          <small
+            class="text-danger"
+            [class.d-none]="name.valid || name.untouched"
+            >Name is Required</small
+          >
+        </div>
+      </div>
+
+      <!-- PhoneNumber  -->
+
+      <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">PhoneNumber</label>
+        <div class="col-sm-10">
+          <input
+            type="number"
+            pattern="^\d{10}$"
+            required
+            #phoneNumber="ngModel"
+            [class.is-invalid]="phoneNumber.invalid && phoneNumber.touched"
+            class="form-control white"
+            placeholder="Enter Your PhoneNumber"
+            name="phoneNumber"
+            [(ngModel)]="employee.phoneNumber"
+          />
+          <div
+            *ngIf="
+              phoneNumber.errors && phoneNumber.invalid && phoneNumber.touched
+            "
+          >
+            <small class="text-danger" *ngIf="phoneNumber.errors.required"
+              >PhoneNumber is required</small
+            >
+            <small class="text-danger" *ngIf="phoneNumber.errors.pattern"
+              >Invalid PhoneNumber
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Department -->
+
+      <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Department</label>
+        <div class="col-sm-10">
+          <select
+            (blur)="validateDepartment(department.value)"
+            (change)="validateDepartment(department.value)"
+            #department="ngModel"
+            [class.is-invalid]="departmentHasError && department.touched"
+            class="form-control"
+            name="department"
+            [(ngModel)]="employee.department"
+          >
+            <option selected value="false">Choose ur Department</option>
+            <option *ngFor="let department of department_Topic">
+              {{ department }}
+            </option>
+          </select>
+          <small
+            class="text-danger"
+            [class.d-none]="!departmentHasError || department.untouched"
+            >Department is Required</small
+          >
+        </div>
+      </div>
+
+      <!-- Salary -->
+
+      <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Salary</label>
+        <div class="col-sm-10">
+          <input
+            type="number"
+            required
+            #salary="ngModel"
+            pattern="^\d{1,6}(?:\.\d{0,2})?$"
+            [class.is-invalid]="salary.invalid && salary.touched"
+            class="form-control white"
+            placeholder="Enter Your Salary"
+            name="salary"
+            [(ngModel)]="employee.salary"
+          />
+          <div *ngIf="salary.errors && salary.invalid && salary.touched">
+            <small class="text-danger" *ngIf="salary.errors.required"
+              >Salary is required</small
+            >
+            <small class="text-danger" *ngIf="salary.errors.pattern"
+              >Salary must be below 2laks</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- submit  -->
+
+      <div align="center" class="d-grid d-md-block">
+        <button
+          [disabled]="userForm.form.invalid || departmentHasError"
+          class="btn btn-primary border-dark"
+          type="submit"
+          style="margin: 10px"
+        >
+          Submit
+        </button>
+
+        <button
+          class="btn btn-outline-danger"
+          type="reset"
+          style="margin: 10px"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
